@@ -1,26 +1,23 @@
 package com.patika.blogger.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.patika.blogger.controller.UserAddress;
-import org.apache.tomcat.jni.Address;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
+import javax.persistence.*;
+import com.patika.blogger.model.Address;
 
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements Serializable{
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String Address;
+
+    @OneToOne
+    private Address address;
     private String firstName;
     private String lastName;
     private String emailAddress;
@@ -30,7 +27,7 @@ public class User implements Serializable{
 
     
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date hirringDate;
+    private Date hiringDate;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date birthDate;    
@@ -39,6 +36,7 @@ public class User implements Serializable{
     private User manager;
     
     private EducationState educationState;
+
 
     public static User findOne(User user) {
         return user;
@@ -93,20 +91,16 @@ public class User implements Serializable{
         this.picturePath = picturePath;
     }
 
-    public String getAddress() {
-        return Address;
+
+
+
+
+    public Date getHiringDate() {
+        return hiringDate;
     }
 
-    public void setAddress(String Address) {
-        this.Address = Address;
-    }
-
-    public Date getHirringDate() {
-        return hirringDate;
-    }
-
-    public void setHirringDate(Date hirringDate) {
-        this.hirringDate = hirringDate;
+    public void setHiringDate(Date hiringDate) {
+        this.hiringDate = hiringDate;
     }
 
     public Date getBirthDate() {
@@ -133,13 +127,15 @@ public class User implements Serializable{
         this.educationState = educationState;
     }
 
-    public User(long id, String firstName, String lastName, String emailAddress, Gender gender, Date hirringDate, User manager) {
+
+
+    public User(long id, String firstName, String lastName, String emailAddress, Gender gender, Date hiringDate, User manager) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.gender = gender;
-        this.hirringDate = hirringDate;
+        this.hiringDate = hiringDate;
         this.manager = manager;
         
         System.out.println(getLastName());
