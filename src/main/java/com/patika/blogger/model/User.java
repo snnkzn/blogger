@@ -1,8 +1,6 @@
 package com.patika.blogger.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.patika.blogger.controller.UserAddress;
-import org.apache.tomcat.jni.Address;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +18,7 @@ public class User implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String Address;
+    private Address address;
     private String firstName;
     private String lastName;
     private String emailAddress;

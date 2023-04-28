@@ -1,4 +1,4 @@
-package com.patika.blogger.controller;
+package com.patika.blogger.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.patika.blogger.model.Gender;
@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserAddress {
+public class Address {
     @Entity
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public class User implements Serializable {
