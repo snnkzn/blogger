@@ -2,71 +2,60 @@
 package com.patika.blogger;
 
 import com.patika.blogger.model.Gender;
-import com.patika.blogger.model.User;
+import com.patika.blogger.model.UserModel;
 import com.patika.blogger.repository.ExpenseTypeRepository;
 import com.patika.blogger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
 import java.util.Random;
 
 @Component
-public class StartupRunner implements CommandLineRunner {
-
-    static final String alphabets = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
+public class StartupRunner implements CommandLineRunner{
 
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private ExpenseTypeRepository expenseTypeRepository;
-    private int genderIndex;
 
     @Override
     public void run(String... args) throws Exception {
 
+     /*   UserModel newUser = new UserModel(2, "Kürşat", "Ufuk", "k@gmail.com", Gender.MALE,null , null);
+        userRepository.save(newUser);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //ExpenseType newExpenseType = new ExpenseType(1,"test2",EnableFlag.NO);
+        //expenseTypeRepository.save(newExpenseType);
+    */
+        Random random = new Random();
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-        final int MAX = 100;
+        for (int i = 0; i < 100; i++) {
+            String lastName = generateRandomName(random, alphabet);
+            String name = generateRandomName(random, alphabet);
+            String gender = (i < 50) ? "Male" : "Female";
 
-        String[] name = new String[MAX];
-        String[] surname = new String[MAX];
-        int[] telephone = new int[MAX];
-        String[] GENDER_LIST = {"MALE", "FEMALE"};
-
-
-        for (int i = 0; i < MAX; i++) {
-            name[i] = randomString(5);
-            telephone[i] = randomInt(1000000, 9999999);
-            surname[i] = randomString(7);
-        }
-
-        for (int j = 1; j < MAX; j++) {
-
-            if (j % 2 == 0) {
-                User newUser = new User(j, name[j], surname[j], name[j] + "." + surname[j] + "@gmail.com", Gender.FEMALE, null, null);
-                userRepository.save(newUser);
-            } else {
-                User newUser = new User(j, name[j], surname[j], name[j] + "." + surname[j] + "@gmail.com", Gender.MALE, null, null);
-                userRepository.save(newUser);
-            }
-
+            System.out.println("Person " + (i + 1) + ": " + name + " - " + lastName + " - " +gender );
         }
     }
 
+    public static String generateRandomName(Random random, String alphabet) {
+        int firstName = random.nextInt(2)+3;
+        int lastName = random.nextInt(2)+2;
+        StringBuilder nameBuilder = new StringBuilder();
 
-    public static int randomInt(int min, int max) {
-        Random rand = new Random();
-        int randomNum = rand.nextInt((max - min) + 1) + min;
-        return randomNum;
-    }
-
-    public static String randomString(int len) {
-        Random rand = new Random();
-        StringBuilder word = new StringBuilder(len);
-        for (int i = 0; i < len; i++) {
-            word.append(alphabets.charAt(rand.nextInt(alphabets.length())));
+        for (int i=0; i <lastName; i++){
+            int indexForLastName = random.nextInt(alphabet.length());
+            char letterForLastName = alphabet.charAt(indexForLastName);
+            nameBuilder.append(letterForLastName);
         }
-        return word.toString();
+        for (int i = 0; i < firstName; i++) {
+            int index = random.nextInt(alphabet.length());
+            char letter = alphabet.charAt(index);
+            nameBuilder.append(letter);
+        }
+
+        return nameBuilder.toString();
     }
+
 }

@@ -1,7 +1,6 @@
 package com.patika.blogger.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -13,19 +12,20 @@ import javax.persistence.Temporal;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User implements Serializable{
+public class UserModel implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private Address address;
+    
     private String firstName;
     private String lastName;
     private String emailAddress;
     private Gender gender;
     private String picturePath;
+    
     //@OneToMany(cascade  = CascadeType.ALL)
-
+    private String Address;
     
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date hirringDate;
@@ -34,14 +34,9 @@ public class User implements Serializable{
     private Date birthDate;    
     
     //@ManyToOne
-    private User manager;
+    private UserModel manager;
     
     private EducationState educationState;
-
-    public static User findOne(User user) {
-        return user;
-    }
-
 
     public long getId() {
         return id;
@@ -115,11 +110,11 @@ public class User implements Serializable{
         this.birthDate = birthDate;
     }
 
-    public User getManager() {
+    public UserModel getManager() {
         return manager;
     }
 
-    public void setManager(User manager) {
+    public void setManager(UserModel manager) {
         this.manager = manager;
     }
 
@@ -131,7 +126,7 @@ public class User implements Serializable{
         this.educationState = educationState;
     }
 
-    public User(long id, String firstName, String lastName, String emailAddress, Gender gender, Date hirringDate, User manager) {
+    public UserModel(long id, String firstName, String lastName, String emailAddress, Gender gender, Date hirringDate, UserModel manager) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -143,13 +138,11 @@ public class User implements Serializable{
         System.out.println(getLastName());
     }
     
-    public User()
+    public UserModel()
     {
         ;
     }
-
-
-    public String getUserName() {
-        return null;
-    }
+    
+    
+    
 }

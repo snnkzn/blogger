@@ -2,7 +2,7 @@ package com.patika.blogger.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.patika.blogger.model.Gender;
-import com.patika.blogger.model.User;
+import com.patika.blogger.model.UserModel;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
