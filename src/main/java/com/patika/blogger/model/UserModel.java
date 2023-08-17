@@ -1,6 +1,7 @@
 package com.patika.blogger.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -12,30 +13,30 @@ import javax.persistence.Temporal;
 
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserModel implements Serializable{
-    
+public class UserModel implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     private String firstName;
     private String lastName;
     private String emailAddress;
     private Gender gender;
     private String picturePath;
-    
+
     //@OneToMany(cascade  = CascadeType.ALL)
     private String Address;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date hirringDate;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date birthDate;    
-    
+    private Date birthDate;
+
     //@ManyToOne
     private UserModel manager;
-    
+
     private EducationState educationState;
 
     public long getId() {
@@ -127,22 +128,20 @@ public class UserModel implements Serializable{
     }
 
     public UserModel(String firstName, String lastName, String emailAddress, Gender gender, Date hirringDate, UserModel manager) {
-       // this.id = id;
+        // this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.gender = gender;
         this.hirringDate = hirringDate;
         this.manager = manager;
-        
+
         System.out.println(getLastName());
     }
-    
-    public UserModel()
-    {
-        
+
+    public UserModel() {
+
     }
-    
-    
-    
+
+
 }

@@ -1,27 +1,33 @@
 package com.patika.blogger.controller;
 
+import com.patika.blogger.model.Address;
 import com.patika.blogger.model.Gender;
 import com.patika.blogger.model.UserModel;
-import com.patika.blogger.repository.UserRepository;
+import com.patika.blogger.repository.UserModelRepository;
+
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserModelRepository userRepository;
 
     @GetMapping(path = "/getUsers")
     public List<UserModel> getUser() {
         return userRepository.findAll();
     }
+
+
+    @GetMapping(path = "/get-users-by-gender", params = {"gender"})
+    public List<UserModel> getUsersByGender(@RequestParam(name = "gender") Gender gender) {
+        return userRepository.findByGender(gender);
+    }
+
 
     @GetMapping(path = "/setUser")
     public void setUser() {
@@ -33,12 +39,12 @@ public class UserController {
 
     @PostMapping(path = "/postUser")
     public UserModel save(@RequestBody UserModel user) {
-        
-        if (user.getFirstName() == null){
+
+        if (user.getFirstName() == null) {
             return null;
         }
-        
-       return  userRepository.save(user);
+
+        return userRepository.save(user);
     }
 
 }
