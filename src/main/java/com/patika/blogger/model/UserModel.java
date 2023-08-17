@@ -126,8 +126,8 @@ public class UserModel implements Serializable{
         this.educationState = educationState;
     }
 
-    public UserModel(long id, String firstName, String lastName, String emailAddress, Gender gender, Date hirringDate, UserModel manager) {
-        this.id = id;
+    public UserModel(String firstName, String lastName, String emailAddress, Gender gender, Date hirringDate, UserModel manager) {
+       // this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -140,7 +140,7 @@ public class UserModel implements Serializable{
     
     public UserModel()
     {
-        ;
+        
     }
     
     

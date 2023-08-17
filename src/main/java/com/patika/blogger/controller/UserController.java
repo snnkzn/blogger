@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping(path = "/setUser")
     public void setUser() {
 
-        UserModel newUser = new UserModel(0, "Sinan", "Kazan", "sinankaza@gmail.com", Gender.MALE, null, null);
+        UserModel newUser = new UserModel("Sinan", "Kazan", "sinankaza@gmail.com", Gender.MALE, null, null);
         System.out.println("Burada");
         userRepository.save(newUser);
     }

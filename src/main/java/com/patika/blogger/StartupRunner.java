@@ -1,4 +1,3 @@
-
 package com.patika.blogger;
 
 import com.patika.blogger.model.Gender;
@@ -8,10 +7,11 @@ import com.patika.blogger.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
 @Component
-public class StartupRunner implements CommandLineRunner{
+public class StartupRunner implements CommandLineRunner {
 
     @Autowired
     private UserRepository userRepository;
@@ -27,35 +27,33 @@ public class StartupRunner implements CommandLineRunner{
         //ExpenseType newExpenseType = new ExpenseType(1,"test2",EnableFlag.NO);
         //expenseTypeRepository.save(newExpenseType);
     */
-        Random random = new Random();
-        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+
 
         for (int i = 0; i < 100; i++) {
-            String lastName = generateRandomName(random, alphabet);
-            String name = generateRandomName(random, alphabet);
-            String gender = (i < 50) ? "Male" : "Female";
-
-            System.out.println("Person " + (i + 1) + ": " + name + " - " + lastName + " - " +gender );
+            String lastName = generateRandomName();
+            String name = generateRandomName();
+            String email = name + lastName+"@gmail.com";
+            Gender gender = (i < 50) ? Gender.MALE : Gender.FEMALE;
+            System.out.println("Person " + (i + 1) + ": " + name + " - " + lastName +" - " + email + " - " + gender);
+            UserModel newUser = new UserModel( name, lastName, email, gender,null , null);
+            userRepository.save(newUser);
         }
     }
 
-    public static String generateRandomName(Random random, String alphabet) {
-        int firstName = random.nextInt(2)+3;
-        int lastName = random.nextInt(2)+2;
-        StringBuilder nameBuilder = new StringBuilder();
+    public static String generateRandomName() {
+        Random random = new Random();
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+            int nameLength = random.nextInt(5) + 3;
+            char[] nameChars = new char[nameLength];
+            for (int i = 0; i < nameLength; i++) {
+                int index = random.nextInt(alphabet.length());
+                char letter = alphabet.charAt(index);
+                nameChars[i] = letter;
+            }
 
-        for (int i=0; i <lastName; i++){
-            int indexForLastName = random.nextInt(alphabet.length());
-            char letterForLastName = alphabet.charAt(indexForLastName);
-            nameBuilder.append(letterForLastName);
-        }
-        for (int i = 0; i < firstName; i++) {
-            int index = random.nextInt(alphabet.length());
-            char letter = alphabet.charAt(index);
-            nameBuilder.append(letter);
+
+return new String(nameChars);
         }
 
-        return nameBuilder.toString();
+
     }
-
-}
