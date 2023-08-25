@@ -1,14 +1,16 @@
 package com.patika.blogger.controller;
 
-import com.patika.blogger.model.Address;
 import com.patika.blogger.model.Gender;
 import com.patika.blogger.model.UserModel;
 import com.patika.blogger.repository.UserModelRepository;
 
-import java.util.List;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.management.Query;
+import javax.persistence.EntityManager;
 
 @RestController
 @RequestMapping("/user")
@@ -29,6 +31,20 @@ public class UserController {
     }
 
 
+    @GetMapping(path = "/get-users-by-name", params = {"firstName"})
+    public List<UserModel> getUsersByName(@RequestParam(name = "firstName") String firstName) {
+        ArrayList<UserModel> userModelList  = new ArrayList<UserModel>() ;
+
+
+        try{
+            return  userRepository.findByFirstName(firstName);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+        return  null;
+
+    }
     @GetMapping(path = "/setUser")
     public void setUser() {
 
@@ -43,7 +59,6 @@ public class UserController {
         if (user.getFirstName() == null) {
             return null;
         }
-
         return userRepository.save(user);
     }
 
